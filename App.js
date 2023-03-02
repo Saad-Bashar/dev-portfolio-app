@@ -6,6 +6,7 @@ import {
   Text,
   useWindowDimensions,
   View,
+  ScrollView,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import {
@@ -25,7 +26,7 @@ export default function App() {
     return <ActivityIndicator />;
   }
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <StatusBar style="light" />
       <View>
         <LinearGradient
@@ -90,13 +91,35 @@ export default function App() {
           }}
         />
       </View>
-    </View>
+      <View
+        style={{ marginTop: 30, marginHorizontal: 25, alignSelf: "center" }}
+      >
+        <Text
+          style={{
+            fontSize: 36,
+            fontWeight: "bold",
+            color: "white",
+            textAlign: "center",
+            fontFamily: "font-bold",
+          }}
+        >
+          Nice to meet you! I’m{" "}
+          <Text
+            style={{
+              textDecorationLine: "underline",
+              textDecorationColor: "#FF6B6B",
+            }}
+          >
+            Adam Keyes.
+          </Text>
+        </Text>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#151515",
     paddingTop: 40,
   },
