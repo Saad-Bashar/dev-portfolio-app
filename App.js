@@ -4,7 +4,6 @@ import PersonalPortfolio from "./app/screens/PersonalPortfolio";
 import {
   SpaceGrotesk_500Medium,
   SpaceGrotesk_700Bold,
-  SpaceGrotesk_600SemiBold,
   useFonts,
 } from "@expo-google-fonts/space-grotesk";
 
@@ -12,12 +11,12 @@ export default function App() {
   const [fontsLoaded] = useFonts({
     heading: SpaceGrotesk_700Bold,
     body: SpaceGrotesk_500Medium,
-    subheading: SpaceGrotesk_600SemiBold,
   });
 
   if (!fontsLoaded) {
-    <ActivityIndicator />;
+    return <ActivityIndicator />;
   }
+
   return (
     <View style={styles.container}>
       <PersonalPortfolio />
