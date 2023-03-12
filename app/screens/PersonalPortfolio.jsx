@@ -13,6 +13,8 @@ import { images } from "../theme/images";
 import Button from "../components/button/Button";
 import Divider from "../components/divider/Divider";
 import Skill from "../components/skills/Skill";
+import Project from "../components/projects/Project";
+import Input from "../components/input/Input";
 
 const skills = [
   {
@@ -38,6 +40,44 @@ const skills = [
   {
     title: "Sass",
     subtitle: "3 years experience",
+  },
+];
+
+const projects = [
+  {
+    title: "DESIGN PORTFOLIO",
+    languages: ["HTML", "CSS", "JAVASCRIPT"],
+    image: images.project1,
+    sourceCodeLink: "https://www.google.com/",
+    projectLink: "https://www.google.com/",
+  },
+  {
+    title: "E-LEARNING LANDING PAGE",
+    languages: ["HTML", "CSS", "JAVASCRIPT"],
+    image: images.project2,
+    sourceCodeLink: "https://www.google.com/",
+    projectLink: "https://www.google.com/",
+  },
+  {
+    title: "TODO WEB APP",
+    languages: ["HTML", "CSS", "JAVASCRIPT"],
+    image: images.project3,
+    sourceCodeLink: "https://www.google.com/",
+    projectLink: "https://www.google.com/",
+  },
+  {
+    title: "ENTERTAINMENT WEB APP",
+    languages: ["HTML", "CSS", "JAVASCRIPT"],
+    image: images.project4,
+    sourceCodeLink: "https://www.google.com/",
+    projectLink: "https://www.google.com/",
+  },
+  {
+    title: "MEMORY GAME",
+    languages: ["HTML", "CSS", "JAVASCRIPT"],
+    image: images.project5,
+    sourceCodeLink: "https://www.google.com/",
+    projectLink: "https://www.google.com/",
   },
 ];
 
@@ -161,6 +201,130 @@ export default function PersonalPortfolio() {
               subtitle={skill.subtitle}
             />
           ))}
+        </View>
+
+        <View>
+          <Divider
+            customStyles={{
+              marginHorizontal: metrics.spacing.m,
+              marginVertical: metrics.spacing.xxl,
+            }}
+          />
+          <View
+            style={{
+              position: "absolute",
+              top: -20,
+              right: 0,
+              zIndex: -1,
+            }}
+          >
+            <Image source={images.groupRight} />
+          </View>
+        </View>
+
+        {/* PROJECTS */}
+        <View
+          style={{
+            marginHorizontal: metrics.spacing.m,
+            marginVertical: metrics.spacing.xxl,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Text preset="headingXl">Projects</Text>
+            <Button title="Contact me" />
+          </View>
+
+          {projects.map(
+            (
+              { title, image, languages, projectLink, sourceCodeLink },
+              index
+            ) => (
+              <Project
+                key={title}
+                title={title}
+                image={image}
+                languages={languages}
+                projectLink={projectLink}
+                sourceCodeLink={sourceCodeLink}
+              />
+            )
+          )}
+        </View>
+
+        {/* CONTACT */}
+        <View
+          style={{
+            backgroundColor: colors.darkGrey,
+            paddingVertical: metrics.spacing.xxl,
+            paddingHorizontal: metrics.spacing.m,
+          }}
+        >
+          <Text centered preset="headingXl">
+            Contact
+          </Text>
+          <Text centered customStyles={{ paddingTop: metrics.spacing.s }}>
+            I would love to hear about your project and how I could help. Please
+            fill in the form, and I’ll get back to you as soon as possible.
+          </Text>
+
+          <View style={{ paddingTop: metrics.spacing.xl }}>
+            <Input placeholder="Name" />
+            <Input placeholder="Email" />
+            <Input
+              placeholder="Message"
+              customStyles={{
+                height: 120,
+              }}
+            />
+            <Button
+              title="send message"
+              customStyles={{
+                alignSelf: "flex-end",
+                marginTop: metrics.spacing.l,
+              }}
+            />
+          </View>
+          <View>
+            <Divider customStyles={{ marginVertical: metrics.spacing.xxl }} />
+
+            <View
+              style={{ position: "absolute", left: -20, top: -100, zIndex: -1 }}
+            >
+              <Image source={images.group} />
+            </View>
+          </View>
+
+          <View style={{ width: width - 200, alignSelf: "center" }}>
+            <Text
+              customStyles={{
+                textAlign: "center",
+              }}
+              preset="headingLarge"
+            >
+              adamkeyes
+            </Text>
+
+            {/* Icons */}
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginTop: metrics.spacing.m,
+                justifyContent: "space-around",
+              }}
+            >
+              <Image source={images.github} />
+              <Image source={images.linkedin} />
+              <Image source={images.frontendmentor} />
+              <Image source={images.twitter} />
+            </View>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
