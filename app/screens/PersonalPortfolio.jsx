@@ -1,5 +1,6 @@
 import {
   Image,
+  Pressable,
   SafeAreaView,
   ScrollView,
   useWindowDimensions,
@@ -15,6 +16,8 @@ import Divider from "../components/divider/Divider";
 import Skill from "../components/skills/Skill";
 import Project from "../components/projects/Project";
 import Input from "../components/input/Input";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { firebase } from "@react-native-firebase/auth";
 
 const skills = [
   {
@@ -81,11 +84,23 @@ const projects = [
   },
 ];
 
-export default function PersonalPortfolio() {
+export default function PersonalPortfolio({ navigation }) {
   const { width } = useWindowDimensions();
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.black }}>
       <ScrollView>
+        <Pressable
+          style={{
+            alignSelf: "flex-end",
+            paddingRight: metrics.spacing.m,
+            paddingTop: metrics.spacing.m,
+          }}
+          onPress={() => {
+            navigation.navigate("Create");
+          }}
+        >
+          <Ionicons name="add-circle" size={32} color={colors.white} />
+        </Pressable>
         <View>
           <View
             style={{
@@ -326,6 +341,13 @@ export default function PersonalPortfolio() {
             </View>
           </View>
         </View>
+        <Button
+          onPress={async () => {
+            await firebase.auth().signOut();
+          }}
+          title="Log out"
+          customStyles={{ alignSelf: "center" }}
+        />
       </ScrollView>
     </SafeAreaView>
   );

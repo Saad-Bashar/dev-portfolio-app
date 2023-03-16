@@ -6,6 +6,16 @@ import {
   SpaceGrotesk_700Bold,
   useFonts,
 } from "@expo-google-fonts/space-grotesk";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import CreatePortfolio from "./app/screens/CreatePortfolio";
+import SignUpScreen from "./app/screens/Signup";
+import LoginScreen from "./app/screens/Login";
+import { useEffect, useState } from "react";
+import { firebase } from "@react-native-firebase/auth";
+import ForgotPassword from "./app/screens/ForgetPassword";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -13,15 +23,42 @@ export default function App() {
     body: SpaceGrotesk_500Medium,
   });
 
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      setUser(user);
+    });
+
+    return unsubscribe;
+  }, []);
+
   if (!fontsLoaded) {
     return <ActivityIndicator />;
   }
 
   return (
-    <View style={styles.container}>
-      <PersonalPortfolio />
+    <NavigationContainer>
+      <Stack.Navigator>
+        {!user ? (
+          <Stack.Group>
+            <Stack.Screen name="Signup" component={SignUpScreen} />
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+          </Stack.Group>
+        ) : (
+          <Stack.Group>
+            <Stack.Screen
+              name="Preview"
+              component={PersonalPortfolio}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="Create" component={CreatePortfolio} />
+          </Stack.Group>
+        )}
+      </Stack.Navigator>
       <StatusBar style="light" />
-    </View>
+    </NavigationContainer>
   );
 }
 
