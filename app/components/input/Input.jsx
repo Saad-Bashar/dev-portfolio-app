@@ -3,23 +3,32 @@ import React from "react";
 import { colors } from "../../theme/colors";
 import { metrics } from "../../theme/metrics";
 
-export default function Input({ placeholder, onChangeText, customStyles }) {
-  return (
-    <TextInput
-      placeholder={placeholder}
-      onChangeText={onChangeText}
-      style={[styles.input, customStyles]}
-      placeholderTextColor={colors.grey}
-    />
-  );
+export default function Input({
+    placeholder,
+    onChangeText,
+    customStyles,
+    onBlur,
+    secureTextEntry,
+}) {
+    return (
+        <TextInput
+            placeholder={placeholder}
+            onChangeText={onChangeText}
+            style={[styles.input, customStyles]}
+            placeholderTextColor={colors.grey}
+            onBlur={onBlur}
+            secureTextEntry={secureTextEntry}
+        />
+    );
 }
 
 const styles = StyleSheet.create({
-  input: {
-    borderBottomColor: colors.white,
-    borderBottomWidth: 1,
-    padding: metrics.spacing.m,
-    color: colors.white,
-    marginBottom: metrics.spacing.m,
-  },
+    input: {
+        borderBottomColor: colors.white,
+        borderBottomWidth: 1,
+        paddingVertical: metrics.spacing.m,
+        color: colors.white,
+        marginBottom: metrics.spacing.m,
+        fontFamily: "body",
+    },
 });

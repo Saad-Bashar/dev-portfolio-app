@@ -113,7 +113,7 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace 'com.saad.personalportfolioapp'
+    namespace "com.saad.personalportfolioapp"
     defaultConfig {
         applicationId 'com.saad.personalportfolioapp'
         minSdkVersion rootProject.ext.minSdkVersion
