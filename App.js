@@ -26,13 +26,13 @@ export default function App() {
 
     const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-            setUser(user);
-        });
+    // useEffect(() => {
+    //     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    //         setUser(user);
+    //     });
 
-        return unsubscribe;
-    }, []);
+    //     return unsubscribe;
+    // }, []);
 
     if (!fontsLoaded) {
         return <ActivityIndicator />;
@@ -49,10 +49,18 @@ export default function App() {
                             },
                             headerTitleStyle: {
                                 color: colors.white,
+                                fontFamily: "heading",
+                                fontSize: 20,
                             },
                         }}
                     >
-                        <Stack.Screen name="Signup" component={SignUpScreen} />
+                        <Stack.Screen
+                            name="Signup"
+                            options={{
+                                title: "Create a new account",
+                            }}
+                            component={SignUpScreen}
+                        />
                         <Stack.Screen name="Login" component={LoginScreen} />
                         <Stack.Screen
                             name="ForgotPassword"
