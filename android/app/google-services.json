@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "216405927971",
+    "project_id": "personal-portfolio-app-16d18",
+    "storage_bucket": "personal-portfolio-app-16d18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216405927971:android:291f5d28d57525f9352996",
+        "android_client_info": {
+          "package_name": "com.saad.personalportfolioapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "216405927971-grb6fqgni7t28is30q3epdn1v6t4n69n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkkt1gENuelngJQe5UVHrEcYPzg5H8V9o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "216405927971-grb6fqgni7t28is30q3epdn1v6t4n69n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "216405927971-rtafqnmh3elm0sqepsu29pf6in289mfu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.saad.personalportfolioapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
