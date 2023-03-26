@@ -9,6 +9,7 @@ export default function Input({
     customStyles,
     onBlur,
     secureTextEntry,
+    autoCapitalize,
 }) {
     return (
         <TextInput
@@ -18,6 +19,8 @@ export default function Input({
             placeholderTextColor={colors.grey}
             onBlur={onBlur}
             secureTextEntry={secureTextEntry}
+            autoCapitalize={"none"}
+            autoCorrect={false}
         />
     );
 }

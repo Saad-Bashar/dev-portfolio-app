@@ -6,7 +6,7 @@ import {
     useWindowDimensions,
     View,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { colors } from "../theme/colors";
 import Text from "../components/text/Text";
 import { metrics } from "../theme/metrics";
@@ -18,6 +18,8 @@ import Project from "../components/projects/Project";
 import Input from "../components/input/Input";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { firebase } from "@react-native-firebase/auth";
+import auth from "@react-native-firebase/auth";
+import firestore from "@react-native-firebase/firestore";
 
 const skills = [
     {
@@ -86,6 +88,22 @@ const projects = [
 
 export default function PersonalPortfolio({ navigation }) {
     const { width } = useWindowDimensions();
+    const userId = auth().currentUser.uid;
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const userRef = firestore().collection("users").doc(userId);
+
+        // listen for updates to the user document
+        const unsubscribe = userRef.onSnapshot((documentSnapshot) => {
+            const userData = documentSnapshot.data();
+            setUser(userData);
+        });
+
+        return unsubscribe;
+    }, [userId]);
+
+    console.log("USER ID ", userId);
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.black }}>
             <ScrollView>
@@ -378,6 +396,7 @@ export default function PersonalPortfolio({ navigation }) {
                 </View>
                 <Button
                     onPress={async () => {
+                        // navigation.navigate("Login");
                         await firebase.auth().signOut();
                     }}
                     title="Log out"

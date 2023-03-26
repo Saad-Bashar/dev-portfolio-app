@@ -26,13 +26,14 @@ export default function App() {
 
     const [user, setUser] = useState(null);
 
-    // useEffect(() => {
-    //     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-    //         setUser(user);
-    //     });
+    useEffect(() => {
+        const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+            console.log("USER IN APP " + user);
+            setUser(user);
+        });
 
-    //     return unsubscribe;
-    // }, []);
+        return unsubscribe;
+    }, []);
 
     if (!fontsLoaded) {
         return <ActivityIndicator />;
@@ -40,8 +41,8 @@ export default function App() {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator>
-                {!user ? (
+            {!user ? (
+                <Stack.Navigator initialRouteName="Login">
                     <Stack.Group
                         screenOptions={{
                             headerStyle: {
@@ -54,6 +55,7 @@ export default function App() {
                             },
                         }}
                     >
+                        <Stack.Screen name="Login" component={LoginScreen} />
                         <Stack.Screen
                             name="Signup"
                             options={{
@@ -61,13 +63,14 @@ export default function App() {
                             }}
                             component={SignUpScreen}
                         />
-                        <Stack.Screen name="Login" component={LoginScreen} />
                         <Stack.Screen
                             name="ForgotPassword"
                             component={ForgotPassword}
                         />
                     </Stack.Group>
-                ) : (
+                </Stack.Navigator>
+            ) : (
+                <Stack.Navigator>
                     <Stack.Group>
                         <Stack.Screen
                             name="Preview"
@@ -79,8 +82,9 @@ export default function App() {
                             component={CreatePortfolio}
                         />
                     </Stack.Group>
-                )}
-            </Stack.Navigator>
+                </Stack.Navigator>
+            )}
+
             <StatusBar style="light" />
         </NavigationContainer>
     );
