@@ -1,101 +1,133 @@
-import { View, Text } from "react-native";
 import React from "react";
-import { useForm, Controller, useFieldArray } from "react-hook-form";
+import { Pressable, View } from "react-native";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
 import Input from "../input/Input";
 import { colors } from "../../theme/colors";
 import { metrics } from "../../theme/metrics";
 import Button from "../button/Button";
+import { Ionicons } from "@expo/vector-icons";
+import { LayoutAnimation } from "react-native";
+import auth from "@react-native-firebase/auth";
+import firestore from "@react-native-firebase/firestore";
 
-export default function InputList() {
+const DynamicForm = () => {
     const { control, handleSubmit, register } = useForm({
         defaultValues: {
-            items: [{ name: "", amount: 0 }],
+            items: [{ name: "", amount: "" }],
         },
     });
     const { fields, append, remove } = useFieldArray({
-        name: "items",
         control,
+        name: "items",
     });
+
     const onSubmit = (data) => {
-        console.log(data);
+        let skills = data?.items || [];
+        console.log("DATA", data);
+        const userId = auth().currentUser.uid;
+        const userDocRef = firestore().collection("users").doc(userId);
+        // add each skill object as a document in the 'skills' subcollection
+        skills.forEach((skill) => {
+            userDocRef
+                .collection("skills")
+                .add(skill)
+                .then((docRef) => {
+                    console.log(
+                        `Skill document with ID ${docRef.id} added to 'skills' subcollection`
+                    );
+                })
+                .catch((error) => {
+                    console.error(
+                        "Error adding skill document to subcollection:",
+                        error
+                    );
+                });
+        });
     };
+
     return (
         <View
             style={{
-                backgroundColor: colors.black,
                 flex: 1,
-                paddingHorizontal: metrics.spacing.m,
+                backgroundColor: colors.black,
+                padding: metrics.spacing.m,
             }}
         >
-            {fields.map((field, i) => {
+            {fields.map((field, index) => {
+                const nameFieldName = `items[${index}].name`;
+                const amountFieldName = `items[${index}].amount`;
                 return (
-                    <View key={field.id}>
-                        <View style={{ flexDirection: "row" }}>
-                            <Controller
-                                control={control}
-                                name={`items[${i}].name`}
-                                defaultValue={`${field.name}`}
-                                render={({ field: { onChange } }) => {
-                                    return (
-                                        <>
-                                            <Input
-                                                placeholder={"Name" + i}
-                                                customStyles={{
-                                                    marginRight: 10,
-                                                    flex: 1,
-                                                }}
-                                            />
-                                        </>
-                                    );
-                                }}
-                            />
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-evenly",
+                        }}
+                        key={field.id}
+                    >
+                        <Controller
+                            control={control}
+                            name={nameFieldName}
+                            defaultValue={field.name}
+                            render={({ field: { onChange, value } }) => (
+                                <Input
+                                    placeholder={"Name"}
+                                    customStyles={{
+                                        flex: 1,
+                                    }}
+                                    value={value}
+                                    onChangeText={onChange}
+                                />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name={amountFieldName}
+                            defaultValue={field.amount}
+                            render={({ field: { onChange, value } }) => (
+                                <Input
+                                    placeholder={"Amount"}
+                                    customStyles={{
+                                        flex: 0.5,
+                                        marginLeft: metrics.spacing.m,
+                                    }}
+                                    value={value}
+                                    onChangeText={onChange}
+                                />
+                            )}
+                        />
 
-                            <Controller
-                                control={control}
-                                name={`items[${i}].amount`}
-                                defaultValue={`${field.amount}`}
-                                render={({ field: { onChange } }) => {
-                                    return (
-                                        <>
-                                            <Input
-                                                placeholder={"Amount"}
-                                                customStyles={{ flex: 0.2 }}
-                                            />
-                                        </>
-                                    );
-                                }}
+                        <Pressable
+                            onPress={() => {
+                                LayoutAnimation.configureNext(
+                                    LayoutAnimation.Presets.easeInEaseOut
+                                );
+
+                                remove(index);
+                            }}
+                            style={{ marginTop: 16, marginLeft: 10 }}
+                        >
+                            <Ionicons
+                                name="md-trash-bin"
+                                size={24}
+                                color="white"
                             />
-                        </View>
-                        <View style={{ flexDirection: "row" }}>
-                            <Button
-                                title="Delete"
-                                onPress={() => {
-                                    remove(i);
-                                }}
-                            />
-                        </View>
+                        </Pressable>
                     </View>
                 );
             })}
-
             <Button
-                title="Add one more"
-                customStyles={{
-                    marginRight: metrics.spacing.l,
-                    marginTop: metrics.spacing.l,
-                }}
+                title="Add"
                 onPress={() => {
-                    append({
-                        items: [
-                            {
-                                name: "",
-                                amount: 0,
-                            },
-                        ],
-                    });
+                    LayoutAnimation.configureNext(
+                        LayoutAnimation.Presets.easeInEaseOut
+                    );
+                    append({ name: "", amount: "" });
                 }}
             />
-            <Button onPress={handleSubmit(onSubmit)} title="Submit" />
+            <Button title="Submit" onPress={handleSubmit(onSubmit)} />
         </View>
     );
-}
+};
+
+export default DynamicForm;

@@ -10,6 +10,7 @@ export default function Input({
     onBlur,
     secureTextEntry,
     autoCapitalize,
+    value,
 }) {
     return (
         <TextInput
@@ -21,6 +22,7 @@ export default function Input({
             secureTextEntry={secureTextEntry}
             autoCapitalize={"none"}
             autoCorrect={false}
+            value={value?.toString()}
         />
     );
 }

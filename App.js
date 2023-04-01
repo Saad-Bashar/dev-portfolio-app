@@ -71,7 +71,18 @@ export default function App() {
                 </Stack.Navigator>
             ) : (
                 <Stack.Navigator>
-                    <Stack.Group>
+                    <Stack.Group
+                        screenOptions={{
+                            headerStyle: {
+                                backgroundColor: colors.black,
+                            },
+                            headerTitleStyle: {
+                                color: colors.white,
+                                fontFamily: "heading",
+                                fontSize: 20,
+                            },
+                        }}
+                    >
                         <Stack.Screen
                             name="Preview"
                             component={PersonalPortfolio}

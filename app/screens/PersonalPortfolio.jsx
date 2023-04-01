@@ -20,6 +20,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { firebase } from "@react-native-firebase/auth";
 import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
+import DynamicForm from "../components/input-list/InputList";
 
 const skills = [
     {
@@ -104,6 +105,7 @@ export default function PersonalPortfolio({ navigation }) {
     }, [userId]);
 
     console.log("USER ID ", userId);
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.black }}>
             <ScrollView>
