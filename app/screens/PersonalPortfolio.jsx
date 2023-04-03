@@ -20,6 +20,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { firebase } from "@react-native-firebase/auth";
 import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
+import { useUser } from "../hooks/useUser";
 
 const skills = [
     {
@@ -88,22 +89,10 @@ const projects = [
 
 export default function PersonalPortfolio({ navigation }) {
     const { width } = useWindowDimensions();
-    const userId = auth().currentUser.uid;
-    const [user, setUser] = useState(null);
+    const user = useUser();
 
-    useEffect(() => {
-        const userRef = firestore().collection("users").doc(userId);
+    const { name, bio } = user || {};
 
-        // listen for updates to the user document
-        const unsubscribe = userRef.onSnapshot((documentSnapshot) => {
-            const userData = documentSnapshot.data();
-            setUser(userData);
-        });
-
-        return unsubscribe;
-    }, [userId]);
-
-    console.log("USER ID ", userId);
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.black }}>
             <ScrollView>
@@ -114,7 +103,7 @@ export default function PersonalPortfolio({ navigation }) {
                         paddingTop: metrics.spacing.m,
                     }}
                     onPress={() => {
-                        navigation.navigate("Create");
+                        navigation.navigate("Menu");
                     }}
                 >
                     <Ionicons
@@ -133,10 +122,11 @@ export default function PersonalPortfolio({ navigation }) {
                         <Text
                             customStyles={{
                                 textAlign: "center",
+                                textTransform: "capitalize",
                             }}
                             preset="headingLarge"
                         >
-                            adamkeyes
+                            {name}
                         </Text>
 
                         {/* Icons */}
@@ -212,9 +202,10 @@ export default function PersonalPortfolio({ navigation }) {
                             customStyles={{
                                 textDecorationLine: "underline",
                                 textDecorationColor: colors.green,
+                                textTransform: "capitalize",
                             }}
                         >
-                            Adam Keyes.
+                            {name}.
                         </Text>
                     </Text>
                     <Text
@@ -223,8 +214,7 @@ export default function PersonalPortfolio({ navigation }) {
                             paddingTop: metrics.spacing.l,
                         }}
                     >
-                        Based in the UK, I’m a front-end developer passionate
-                        about building accessible web apps that users love.
+                        {bio}
                     </Text>
 
                     <Button

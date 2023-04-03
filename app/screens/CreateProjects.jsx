@@ -1,10 +1,10 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-export default function InputList() {
+export default function CreateProjects() {
     return (
         <View>
-            <Text>InputList</Text>
+            <Text>CreateProjects</Text>
         </View>
     );
 }

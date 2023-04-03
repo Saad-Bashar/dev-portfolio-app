@@ -16,7 +16,6 @@ export default function Signup({ navigation }) {
     const {
         control,
         handleSubmit,
-        reset,
         formState: { errors, isSubmitting, isSubmitSuccessful },
     } = useForm({
         resolver: yupResolver(
@@ -54,8 +53,6 @@ export default function Signup({ navigation }) {
             .doc(userId) // add userId
             .set(userProfile); // set the profile
     };
-
-    return <InputList />;
 
     return (
         <View
