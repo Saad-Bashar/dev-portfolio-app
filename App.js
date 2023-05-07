@@ -15,6 +15,8 @@ import { useEffect, useState } from "react";
 import { firebase } from "@react-native-firebase/auth";
 import ForgotPassword from "./app/screens/ForgetPassword";
 import { colors } from "./app/theme/colors";
+import CreateSkill from "./app/screens/CreateSkill";
+import CreateProject from "./app/screens/CreateProject";
 
 const Stack = createNativeStackNavigator();
 
@@ -91,6 +93,14 @@ export default function App() {
                         <Stack.Screen
                             name="Create"
                             component={CreatePortfolio}
+                        />
+                        <Stack.Screen
+                            name="CreateSkill"
+                            component={CreateSkill}
+                        />
+                        <Stack.Screen
+                            name="CreateProject"
+                            component={CreateProject}
                         />
                     </Stack.Group>
                 </Stack.Navigator>

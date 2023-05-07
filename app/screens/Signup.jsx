@@ -55,8 +55,6 @@ export default function Signup({ navigation }) {
             .set(userProfile); // set the profile
     };
 
-    return <InputList />;
-
     return (
         <View
             style={{

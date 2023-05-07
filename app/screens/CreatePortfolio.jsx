@@ -7,7 +7,7 @@ import Text from "../components/text/Text";
 import { metrics } from "../theme/metrics";
 import Divider from "../components/divider/Divider";
 
-export default function CreatePortfolio() {
+export default function CreatePortfolio({ navigation }) {
     return (
         <SafeAreaView
             style={{
@@ -29,6 +29,9 @@ export default function CreatePortfolio() {
             </Pressable>
             <Divider />
             <Pressable
+                onPress={() => {
+                    navigation.navigate("CreateSkill");
+                }}
                 style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
@@ -41,6 +44,9 @@ export default function CreatePortfolio() {
             </Pressable>
             <Divider />
             <Pressable
+                onPress={() => {
+                    navigation.navigate("CreateProject");
+                }}
                 style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
