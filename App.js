@@ -30,7 +30,6 @@ export default function App() {
 
     useEffect(() => {
         const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-            console.log("USER IN APP " + user);
             setUser(user);
         });
 

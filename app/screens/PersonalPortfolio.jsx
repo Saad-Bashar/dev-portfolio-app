@@ -21,6 +21,9 @@ import { firebase } from "@react-native-firebase/auth";
 import auth from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
 import DynamicForm from "../components/input-list/InputList";
+import { useUser } from "../hooks/useUser";
+import { useUserProjects } from "../hooks/userUserProjects";
+import { useUserSkills } from "../hooks/userUserSkills";
 
 const skills = [
     {
@@ -89,22 +92,12 @@ const projects = [
 
 export default function PersonalPortfolio({ navigation }) {
     const { width } = useWindowDimensions();
-    const userId = auth().currentUser.uid;
-    const [user, setUser] = useState(null);
+    const user = useUser();
+    // const userProjects = useUserProjects();
+    // const userSkills = useUserSkills();
+    const { name, bio } = user || {};
 
-    useEffect(() => {
-        const userRef = firestore().collection("users").doc(userId);
-
-        // listen for updates to the user document
-        const unsubscribe = userRef.onSnapshot((documentSnapshot) => {
-            const userData = documentSnapshot.data();
-            setUser(userData);
-        });
-
-        return unsubscribe;
-    }, [userId]);
-
-    console.log("USER ID ", userId);
+    console.log("RENDERING ", user);
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.black }}>
