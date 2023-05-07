@@ -12,6 +12,7 @@ export default function Input({
     autoCapitalize,
     multiline,
     defaultValue,
+    value,
 }) {
     return (
         <TextInput
@@ -25,6 +26,7 @@ export default function Input({
             autoCorrect={false}
             multiline={multiline}
             defaultValue={defaultValue}
+            value={value}
         />
     );
 }
